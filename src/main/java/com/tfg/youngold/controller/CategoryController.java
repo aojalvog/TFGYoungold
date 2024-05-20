@@ -1,6 +1,7 @@
 package com.tfg.youngold.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import com.tfg.youngold.model.Category;
 import com.tfg.youngold.response.CategoryResponseRest;
 import com.tfg.youngold.services.ICategoryService;
 
+@CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/youngold")
 public class CategoryController {
