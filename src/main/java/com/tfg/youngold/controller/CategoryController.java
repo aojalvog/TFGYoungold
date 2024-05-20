@@ -1,6 +1,7 @@
 package com.tfg.youngold.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,32 +27,39 @@ public class CategoryController {
 	// Get
 
 	@GetMapping("/categories")
-	private ResponseEntity<CategoryResponseRest> searchCategories() {
-		ResponseEntity<CategoryResponseRest> response = service.search();
-		return response;
+	public ResponseEntity<CategoryResponseRest> searchCategories() {
+
+		return service.search();
 	}
 
 	@GetMapping("/categories/{id}")
-	private ResponseEntity<CategoryResponseRest> searchCategoriesById(@PathVariable Long id) {
+	public ResponseEntity<CategoryResponseRest> searchCategoriesById(@PathVariable Long id) {
 
-		ResponseEntity<CategoryResponseRest> response = service.searchById(id);
-		return response;
+		return service.searchById(id);
 	}
 
 	// Post
 
 	@PostMapping("/categories")
-	private ResponseEntity<CategoryResponseRest> save(@RequestBody Category category) {
-		ResponseEntity<CategoryResponseRest> response = service.save(category);
-		return response;
+	public ResponseEntity<CategoryResponseRest> save(@RequestBody Category category) {
+
+		return service.save(category);
+
 	}
 
 	// PUT
 
 	@PutMapping("/categories/{id}")
-	private ResponseEntity<CategoryResponseRest> update(@RequestBody Category category, @PathVariable Long id) {
-		ResponseEntity<CategoryResponseRest> response = service.update(category, id);
-		return response;
+	public ResponseEntity<CategoryResponseRest> update(@RequestBody Category category, @PathVariable Long id) {
+		return service.update(category, id);
+	}
+
+	// DELETE
+
+	@DeleteMapping("/categories/{id}")
+	public ResponseEntity<CategoryResponseRest> delete(@PathVariable Long id) {
+
+		return service.delete(id);
 	}
 
 }
