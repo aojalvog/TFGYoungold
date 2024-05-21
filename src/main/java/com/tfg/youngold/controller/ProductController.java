@@ -2,6 +2,9 @@ package com.tfg.youngold.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,4 +37,25 @@ public class ProductController {
 		return productService.save(product, categoryID);
 
 	}
+
+	@GetMapping("/products/{id}")
+	public ResponseEntity<ProductResponseRest> searchById(@PathVariable Long id) {
+		return productService.searchById(id);
+	}
+
+	@GetMapping("/products/filter/{name}")
+	public ResponseEntity<ProductResponseRest> searchByName(@PathVariable String name) {
+		return productService.searchByName(name);
+	}
+
+	@DeleteMapping("/products/{id}")
+	public ResponseEntity<ProductResponseRest> deleteById(@PathVariable Long id) {
+		return productService.deleteById(id);
+	}
+
+	@GetMapping("/products")
+	public ResponseEntity<ProductResponseRest> search() {
+		return productService.search();
+	}
+
 }
