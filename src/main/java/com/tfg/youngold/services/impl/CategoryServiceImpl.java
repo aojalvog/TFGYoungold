@@ -14,8 +14,10 @@ import com.tfg.youngold.response.CategoryResponseRest;
 import com.tfg.youngold.services.ICategoryService;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class CategoryServiceImpl implements ICategoryService {
 
 	private ICategoryDao categoryDao;
@@ -25,10 +27,12 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	}
 
+	// GET
 	@Override
 	@Transactional
 	public ResponseEntity<CategoryResponseRest> search() {
 
+		log.info("<---Entrando en el método search--->");
 		CategoryResponseRest response = new CategoryResponseRest();
 		try {
 			List<Category> category = (List<Category>) categoryDao.findAll();
@@ -48,6 +52,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	@Transactional
 	public ResponseEntity<CategoryResponseRest> searchById(Long id) {
+		log.info("<---Entrando en el método searchById--->");
 		CategoryResponseRest response = new CategoryResponseRest();
 		List<Category> list = new ArrayList<>();
 		try {
@@ -70,9 +75,12 @@ public class CategoryServiceImpl implements ICategoryService {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	// POST
+
 	@Override
 	@Transactional
 	public ResponseEntity<CategoryResponseRest> save(Category category) {
+		log.info("<---Entrando en el método save--->");
 		CategoryResponseRest response = new CategoryResponseRest();
 		List<Category> list = new ArrayList<>();
 		try {
@@ -100,9 +108,12 @@ public class CategoryServiceImpl implements ICategoryService {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	// PUT
+
 	@Override
 	@Transactional
 	public ResponseEntity<CategoryResponseRest> update(Category category, Long id) {
+		log.info("<---Entrando en el método update--->");
 		CategoryResponseRest response = new CategoryResponseRest();
 		List<Category> list = new ArrayList<>();
 		try {
@@ -143,9 +154,12 @@ public class CategoryServiceImpl implements ICategoryService {
 
 	}
 
+	// DELETE
+
 	@Override
 	@Transactional
 	public ResponseEntity<CategoryResponseRest> delete(Long id) {
+		log.info("<---Entrando en el método delete--->");
 		CategoryResponseRest response = new CategoryResponseRest();
 		try {
 			categoryDao.deleteById(id);

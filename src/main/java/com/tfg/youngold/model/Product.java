@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,9 +23,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Product implements Serializable {
-	/**
-	* 
-	*/
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,7 +31,7 @@ public class Product implements Serializable {
 	private Long id;
 
 	private String name;
-
+	@Column(columnDefinition = "decimal(10, 2)")
 	private Double price;
 
 	private int account;

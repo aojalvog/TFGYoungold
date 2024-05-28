@@ -15,6 +15,9 @@ import com.tfg.youngold.model.Category;
 import com.tfg.youngold.response.CategoryResponseRest;
 import com.tfg.youngold.services.ICategoryService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
 @RequestMapping("/youngold")
@@ -30,13 +33,13 @@ public class CategoryController {
 
 	@GetMapping("/categories")
 	public ResponseEntity<CategoryResponseRest> searchCategories() {
-
+		log.info("<---Entrando en método searchCategories--->");
 		return service.search();
 	}
 
 	@GetMapping("/categories/{id}")
 	public ResponseEntity<CategoryResponseRest> searchCategoriesById(@PathVariable Long id) {
-
+		log.info("<---Entrando en método searchCategoriesById--->");
 		return service.searchById(id);
 	}
 
@@ -44,7 +47,7 @@ public class CategoryController {
 
 	@PostMapping("/categories")
 	public ResponseEntity<CategoryResponseRest> save(@RequestBody Category category) {
-
+		log.info("<---Entrando en método save--->");
 		return service.save(category);
 
 	}
@@ -53,6 +56,7 @@ public class CategoryController {
 
 	@PutMapping("/categories/{id}")
 	public ResponseEntity<CategoryResponseRest> update(@RequestBody Category category, @PathVariable Long id) {
+		log.info("<---Entrando en método update--->");
 		return service.update(category, id);
 	}
 
@@ -60,7 +64,7 @@ public class CategoryController {
 
 	@DeleteMapping("/categories/{id}")
 	public ResponseEntity<CategoryResponseRest> delete(@PathVariable Long id) {
-
+		log.info("<---Entrando en método delete--->");
 		return service.delete(id);
 	}
 
