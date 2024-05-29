@@ -1,5 +1,7 @@
 package com.tfg.youngold.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfg.youngold.model.Category;
 import com.tfg.youngold.response.CategoryResponseRest;
 import com.tfg.youngold.services.ICategoryService;
+import com.tfg.youngold.util.CategoryExcelExport;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -66,6 +70,26 @@ public class CategoryController {
 	public ResponseEntity<CategoryResponseRest> delete(@PathVariable Long id) {
 		log.info("<---Entrando en método delete--->");
 		return service.delete(id);
+	}
+
+	// Export
+
+	@GetMapping("/categories/export/excel")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+
+		response.setContentType("application/octet-stream");
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=result_category.xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		ResponseEntity<CategoryResponseRest> categoryResponse = service.search();
+
+		CategoryExcelExport excelExporter = new CategoryExcelExport(
+				categoryResponse.getBody().getCategoryResponse().getCategory());
+
+		excelExporter.export(response);
+
 	}
 
 }

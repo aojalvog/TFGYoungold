@@ -1,5 +1,7 @@
 package com.tfg.youngold.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tfg.youngold.model.Product;
 import com.tfg.youngold.response.ProductResponseRest;
 import com.tfg.youngold.services.IProductService;
+import com.tfg.youngold.util.ProductExcelExport;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -86,6 +90,25 @@ public class ProductController {
 	public ResponseEntity<ProductResponseRest> delete(@PathVariable Long id) {
 		log.info("<---Entrando en el método delete--->");
 		return productService.delete(id);
+	}
+
+	// Export
+
+	@GetMapping("/products/export/excel")
+	public void exportToExcel(HttpServletResponse response) throws IOException {
+
+		response.setContentType("application/octet-stream");
+
+		String headerKey = "Content-Disposition";
+		String headerValue = "attachment; filename=result_products.xlsx";
+		response.setHeader(headerKey, headerValue);
+
+		ResponseEntity<ProductResponseRest> productResponse = productService.search();
+
+		ProductExcelExport excelExporter = new ProductExcelExport(productResponse.getBody().getProduct().getProducts());
+
+		excelExporter.export(response);
+
 	}
 
 }
